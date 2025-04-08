@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Data</title>
+    <style>
+        :root {
+            --primary-blue: #4361ee;
+            --light-blue: #4895ef;
+            --lighter-blue: #4cc9f0;
+            --primary-purple: #7209b7;
+            --light-purple: #b5179e;
+            --lighter-purple: #f72585;
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+          
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            background-size: 200% 200%;
+            animation: gradientBG 8s ease infinite;
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: 0 auto;
+            padding: 0 1rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead tr {
+            background: linear-gradient(to right, var(--primary-purple), var(--light-purple));
+            color: var(--white);
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--light-gray);
+            transition: all 0.2s ease;
+        }
+
+       
+
+      
+        tbody tr:last-of-type {
+            border-bottom: 2px solid var(--primary-purple);
+        }
+
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--light-purple);
+            text-decoration: underline;
+        }
+
+        .status-yes {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .status-no {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1200px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(67, 97, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-blue);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner pulse">
+        <h1>Employee Onboarding Data</h1>
+        <p>Track and Download Employee Onboarding Data</p>
+    </div>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date of Birth</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zipcode</th>
+                    <th>Bank</th>
+                    <th>Account</th>
+                    <th>IFSC</th>
+                    <th>Job Role</th>
+                    <th>Department</th>
+                    <th>Experience Status</th>
+                    <th>Company Name</th>
+                    <th>Years of Experience</th>
+                    <th>Joining Date</th>
+                    <th>Experience Doc</th>
+                    <th>SSC Doc</th>
+                    <th>Intermediate Doc</th>
+                    <th>Graduate Doc</th>
+                    <th>Terms Accepted</th>
+                </tr>
+            </thead>
+            <tbody id="employee-table-body">
+                <tr>
+                    <td colspan="22" class="loading">
+                        <div class="spinner"></div>
+                        Loading employee data...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+      
+       fetch('http://localhost:3000/employees')  
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+
+            .then(data => {
+                const tableBody = document.getElementById('employee-table-body');
+                tableBody.innerHTML = ''; 
+                
+                if (data.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="22" style="text-align: center; padding: 2rem; color: var(--lighter-purple);">
+                                No employee records found
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+             
+                data.forEach(employee => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${employee.emp_name}</td>
+                        <td><a href="mailto:${employee.emp_email}">${employee.emp_email}</a></td>
+                        <td>${new Date(employee.emp_dob).toLocaleDateString()}</td>
+                        <td><a href="tel:${employee.emp_mobile}">${employee.emp_mobile}</a></td>
+                        <td>${employee.emp_address}</td>
+                        <td>${employee.emp_city}</td>
+                        <td>${employee.emp_state}</td>
+                        <td>${employee.emp_zipcode}</td>
+                        <td>${employee.emp_bank}</td>
+                        <td>${employee.emp_account}</td>
+                        <td>${employee.emp_ifsc}</td>
+                        <td>${employee.emp_job_role}</td>
+                        <td>${employee.emp_department}</td>
+                        <td>${employee.emp_experience_status}</td>
+                        <td>${employee.emp_company_name || 'N/A'}</td>
+                        <td>${employee.emp_years_of_experience || 'N/A'}</td>
+                        <td>${new Date(employee.emp_joining_date).toLocaleDateString()}</td>
+                        <td><a href="/uploads/${employee.emp_experience_doc}" target="_blank" class="doc-link">View</a></td>
+                        <td><a href="/uploads/${employee.emp_ssc_doc}" target="_blank" class="doc-link">View</a></td>
+                        <td><a href="/uploads/${employee.emp_inter_doc}" target="_blank" class="doc-link">View</a></td>
+                        <td><a href="/uploads/${employee.emp_grad_doc}" target="_blank" class="doc-link">View</a></td>
+                        <td class="${employee.emp_terms_accepted === 1 ? 'status-yes' : 'status-no'}">${employee.emp_terms_accepted === 1 ? 'No' : 'Yes'}</td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                const tableBody = document.getElementById('employee-table-body');
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="22" style="text-align: center; padding: 2rem; color: var(--lighter-purple);">
+                            Error loading data: ${error.message}
+                        </td>
+                    </tr>
+                `;
+                console.error('Error fetching employee data:', error);
+            });
+    </script>
+</body>
+</html>

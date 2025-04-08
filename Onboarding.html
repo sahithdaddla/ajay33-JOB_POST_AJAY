@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding</title>
+    <style>
+        :root {
+            --primary-color: #9e0096;
+            --secondary-color: #9691ff;
+            --accent-color: #4cc9f0;
+            --success-color: #4ad66d;
+            --warning-color: #f8961e;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --error-color: #e63946;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(158, 0, 150, 0.2);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: #7d0077;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            border: 1px dashed #ddd;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .file-input-label:hover {
+            border-color: var(--primary-color);
+            background-color: #f9f9f9;
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Validation styles */
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        input.invalid, select.invalid {
+            border-color: var(--error-color);
+        }
+
+        input.valid, select.valid {
+            border-color: var(--success-color);
+        }
+
+        @media (max-width: 768px) {
+            .banner h2 {
+                font-size: 2rem;
+            }
+            
+            form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="container">
+            <h2>Welcome to Our Team!</h2>
+            <p>Please complete your onboarding details to get started</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <form id="onboardingForm" enctype="multipart/form-data">
+            <!-- Personal Information -->
+            <div class="form-section">
+                <h3>Personal Information</h3>
+                <input type="text" id="emp_name" name="emp_name" placeholder="Full Name" required>
+                <div id="name-error" class="error-message">Name must be 3-50 alphabetic characters only</div>
+                
+                <input type="email" id="emp_email" name="emp_email" placeholder="Email Address" required>
+                <div id="email-error" class="error-message">Please enter a valid email address</div>
+                
+                <label>Date of Birth</label>
+                <input type="date" id="emp_dob" name="emp_dob" required>
+                <div id="dob-error" class="error-message">Employee must be at least 20 years old</div>
+                
+                <input type="tel" id="emp_mobile" name="emp_mobile" placeholder="Mobile Number" required>
+                <div id="mobile-error" class="error-message">Please enter a valid 10-digit phone number</div>
+            </div>
+            
+            <!-- Address Information -->
+            <div class="form-section">
+                <h3>Address Information</h3>
+                <input type="text" id="emp_address" name="emp_address" placeholder="Street Address" required>
+                <div id="address-error" class="error-message">Address must be 5-100 characters</div>
+                
+                <input type="text" id="emp_city" name="emp_city" placeholder="City" required>
+                <div id="city-error" class="error-message">Please enter a valid city name</div>
+                
+                <select id="emp_state" name="emp_state" required>
+                    <option value="">Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Puducherry">Puducherry</option>
+                </select>
+                <div id="state-error" class="error-message">Please select a state</div>
+                
+                <input type="text" id="emp_zipcode" name="emp_zipcode" placeholder="Zip/Postal Code" required>
+                <div id="zipcode-error" class="error-message">Please enter a valid 6-digit zip code</div>
+            </div>
+  
+            <div class="form-section">
+                <h3>Bank Details</h3>
+                <input type="text" id="emp_bank" name="emp_bank" placeholder="Bank Name" required>
+                <div id="bank-error" class="error-message">Please enter a valid bank name</div>
+                
+                <input type="text" id="emp_account" name="emp_account" placeholder="Account Number" required>
+                <div id="account-error" class="error-message">Account number must be 9-18 digits</div>
+                
+                <input type="text" id="emp_ifsc" name="emp_ifsc" placeholder="IFSC Code" required>
+                <div id="ifsc-error" class="error-message">Please enter a valid IFSC code (e.g. ABCD0123456)</div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Employment Details</h3>
+                <select id="emp_job_role" name="emp_job_role" required>
+                    <option value="">Select Job Role</option>
+                    <option value="Software Developer">Software Developer</option>
+                    <option value="Web Developer">Web Developer</option>
+                    <option value="Database Administrator">Backend Developer</option>
+                    <option value="Software Tester">Software Tester</option>
+                    <option value="System Administrator">Java Developer</option>
+                    <option value="Security Analyst">Python Developer</option>
+                    <option value="Cloud Engineer">Cloud Engineer</option>
+                    <option value="Data Scientist">Data Scientist</option>
+                    <option value="Business Analyst">Business Analyst</option>
+                    <option value="DevOps Engineer">DevOps Engineer</option>
+                    <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                    <option value="Project Manager">Project Manager</option>
+                    <option value="Full Stack Developer">Full Stack Developer</option>
+                </select>
+                <div id="job-error" class="error-message">Please select a job role</div>
+                
+                <select id="emp_department" name="emp_department" required>
+                    <option value="">Select Department</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Product">Product</option>
+                    <option value="Design">Design</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Human Resources">Human Resources</option>
+                </select>
+                <div id="dept-error" class="error-message">Please select a department</div>
+                
+                <label>Experience Status:</label>
+                <select id="emp_experience_status" name="emp_experience_status" required>
+                    <option value="">Select Experience</option>
+                    <option value="Fresher">Fresher</option>
+                    <option value="Experienced">Experienced</option>
+                </select>
+                <div id="exp-status-error" class="error-message">Please select experience status</div>
+                
+                <div id="experienceFields" style="display:none;">
+                    <input type="text" id="emp_company_name" name="emp_company_name" placeholder="Previous Company Name">
+                    <div id="company-error" class="error-message">Please enter a valid company name</div>
+                    
+                    <input type="text" id="emp_years_of_experience" name="emp_years_of_experience" placeholder="Years of Experience">
+                    <div id="exp-years-error" class="error-message">Please enter valid years (1-2 digits)</div>
+                    
+                    <label class="file-input-label">
+                        Upload Experience Document (PDF, JPG, PNG - max 2MB)
+                        <input type="file" id="emp_experience_doc" name="emp_experience_doc" style="display: none;" accept=".pdf,.jpg,.jpeg,.png">
+                    </label>
+                    <div id="exp-doc-error" class="error-message">Only PDF, JPG, PNG files under 2MB</div>
+                </div>
+                
+                <label>Joining Date</label>
+                <input type="date" id="emp_joining_date" name="emp_joining_date" required>
+                <div id="joining-error" class="error-message">Joining date cannot be in the past</div>
+            </div>
+            
+            
+            <div class="form-section">
+                <h3>Education Documents</h3>
+                <label class="file-input-label">
+                    Upload SSC Certificate (PDF, JPG, PNG - max 2MB)
+                    <input type="file" id="emp_ssc_doc" name="emp_ssc_doc" required accept=".pdf,.jpg,.jpeg,.png">
+                </label>
+                <div id="ssc-error" class="error-message">Document is required (max 2MB)</div>
+                
+                <label class="file-input-label">
+                    Upload Intermediate Certificate (PDF, JPG, PNG - max 2MB)
+                    <input type="file" id="emp_inter_doc" name="emp_inter_doc" required accept=".pdf,.jpg,.jpeg,.png">
+                </label>
+                <div id="inter-error" class="error-message">Document is required (max 2MB)</div>
+                
+                <label class="file-input-label">
+                    Upload Graduation Certificate (PDF, JPG, PNG - max 2MB)
+                    <input type="file" id="emp_grad_doc" name="emp_grad_doc" accept=".pdf,.jpg,.jpeg,.png">
+                </label>
+                <div id="grad-error" class="error-message">Only PDF, JPG, PNG files under 2MB</div>
+            </div>
+            
+           
+            <div class="checkbox-container">
+                <input type="checkbox" id="emp_terms_accepted" name="emp_terms_accepted" required>
+                <label for="emp_terms_accepted">I accept the Terms & Conditions</label>
+            </div>
+            <div id="terms-error" class="error-message">You must accept the terms and conditions</div>
+            
+          
+            <button type="submit" id="submitBtn">Complete Onboarding</button>
+        </form>
+    </div>
+
+    <script>
+       
+const form = document.getElementById('onboardingForm');
+const submitBtn = document.getElementById('submitBtn');
+const termsCheckbox = document.getElementById('emp_terms_accepted');
+const experienceStatus = document.getElementById('emp_experience_status');
+const experienceFields = document.getElementById('experienceFields');
+
+const nameRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const mobileRegex = /^[6789]\d{9}$/;
+        const cityRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const zipRegex = /^[0-9]{6}$/;
+        const bankRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const accountRegex = /^[0-9]{9,18}$/;
+        const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+        const jobDeptRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const companyRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const expYearsRegex = /^[0-9]{1,2}$/;
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const dobInput = document.getElementById('emp_dob');
+    const today = new Date();
+    const maxDobDate = new Date(today.getFullYear() - 20, today.getMonth(), today.getDate());
+    dobInput.max = maxDobDate.toISOString().split('T')[0];
+    
+   
+    const joiningInput = document.getElementById('emp_joining_date');
+    joiningInput.min = today.toISOString().split('T')[0];
+    
+   
+    termsCheckbox.addEventListener('change', toggleSubmitButton);
+    experienceStatus.addEventListener('change', toggleExperienceFields);
+    form.addEventListener('submit', saveEmployee);
+
+    
+    document.getElementById('emp_name').addEventListener('input', validateName);
+    document.getElementById('emp_email').addEventListener('input', validateEmail);
+    document.getElementById('emp_dob').addEventListener('change', validateDOB);
+    document.getElementById('emp_mobile').addEventListener('input', validateMobile);
+    document.getElementById('emp_address').addEventListener('input', validateAddress);
+    document.getElementById('emp_city').addEventListener('input', validateCity);
+    document.getElementById('emp_state').addEventListener('change', validateState);
+    document.getElementById('emp_zipcode').addEventListener('input', validateZipcode);
+    document.getElementById('emp_bank').addEventListener('input', validateBank);
+    document.getElementById('emp_account').addEventListener('input', validateAccount);
+    document.getElementById('emp_ifsc').addEventListener('input', validateIFSC);
+    document.getElementById('emp_job_role').addEventListener('change', validateJobRole);
+    document.getElementById('emp_department').addEventListener('change', validateDepartment);
+    document.getElementById('emp_company_name').addEventListener('input', validateCompany);
+    document.getElementById('emp_years_of_experience').addEventListener('input', validateExpYears);
+    document.getElementById('emp_joining_date').addEventListener('change', validateJoiningDate);
+    document.getElementById('emp_experience_doc').addEventListener('change', validateExpDoc);
+    document.getElementById('emp_ssc_doc').addEventListener('change', validateSSCDoc);
+    document.getElementById('emp_inter_doc').addEventListener('change', validateInterDoc);
+    document.getElementById('emp_grad_doc').addEventListener('change', validateGradDoc);
+});
+
+// Validation Functions
+function validateName() {
+    const name = document.getElementById('emp_name');
+    const error = document.getElementById('name-error');
+    if (!nameRegex.test(name.value)) {
+        name.classList.add('invalid');
+        name.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        name.classList.add('valid');
+        name.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateEmail() {
+    const email = document.getElementById('emp_email');
+    const error = document.getElementById('email-error');
+    if (!emailRegex.test(email.value)) {
+        email.classList.add('invalid');
+        email.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        email.classList.add('valid');
+        email.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateDOB() {
+    const dob = document.getElementById('emp_dob');
+    const error = document.getElementById('dob-error');
+    if (!dob.value) {
+        dob.classList.add('invalid');
+        dob.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    }
+    
+    const dobDate = new Date(dob.value);
+    const today = new Date();
+    const minAgeDate = new Date(today.getFullYear() - 20, today.getMonth(), today.getDate());
+    
+    if (dobDate > minAgeDate) {
+        dob.classList.add('invalid');
+        dob.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        dob.classList.add('valid');
+        dob.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateMobile() {
+    const mobile = document.getElementById('emp_mobile');
+    const error = document.getElementById('mobile-error');
+    if (!mobileRegex.test(mobile.value)) {
+        mobile.classList.add('invalid');
+        mobile.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        mobile.classList.add('valid');
+        mobile.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateAddress() {
+    const address = document.getElementById('emp_address');
+    const error = document.getElementById('address-error');
+    if (address.value.length < 5 || address.value.length > 100) {
+        address.classList.add('invalid');
+        address.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        address.classList.add('valid');
+        address.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateCity() {
+    const city = document.getElementById('emp_city');
+    const error = document.getElementById('city-error');
+    if (!cityRegex.test(city.value)) {
+        city.classList.add('invalid');
+        city.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        city.classList.add('valid');
+        city.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateState() {
+    const state = document.getElementById('emp_state');
+    const error = document.getElementById('state-error');
+    if (!state.value) {
+        state.classList.add('invalid');
+        state.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        state.classList.add('valid');
+        state.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateZipcode() {
+    const zipcode = document.getElementById('emp_zipcode');
+    const error = document.getElementById('zipcode-error');
+    if (!zipRegex.test(zipcode.value)) {
+        zipcode.classList.add('invalid');
+        zipcode.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        zipcode.classList.add('valid');
+        zipcode.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateBank() {
+    const bank = document.getElementById('emp_bank');
+    const error = document.getElementById('bank-error');
+    if (!bankRegex.test(bank.value)) {
+        bank.classList.add('invalid');
+        bank.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        bank.classList.add('valid');
+        bank.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateAccount() {
+    const account = document.getElementById('emp_account');
+    const error = document.getElementById('account-error');
+    if (!accountRegex.test(account.value)) {
+        account.classList.add('invalid');
+        account.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        account.classList.add('valid');
+        account.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateIFSC() {
+    const ifsc = document.getElementById('emp_ifsc');
+    const error = document.getElementById('ifsc-error');
+    if (!ifscRegex.test(ifsc.value.toUpperCase())) {
+        ifsc.classList.add('invalid');
+        ifsc.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        ifsc.classList.add('valid');
+        ifsc.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateJobRole() {
+    const job = document.getElementById('emp_job_role');
+    const error = document.getElementById('job-error');
+    if (!job.value) {
+        job.classList.add('invalid');
+        job.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        job.classList.add('valid');
+        job.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateDepartment() {
+    const dept = document.getElementById('emp_department');
+    const error = document.getElementById('dept-error');
+    if (!dept.value) {
+        dept.classList.add('invalid');
+        dept.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        dept.classList.add('valid');
+        dept.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateCompany() {
+    const company = document.getElementById('emp_company_name');
+    const error = document.getElementById('company-error');
+    if (experienceStatus.value === 'Experienced' && !companyRegex.test(company.value)) {
+        company.classList.add('invalid');
+        company.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        company.classList.add('valid');
+        company.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateExpYears() {
+    const expYears = document.getElementById('emp_years_of_experience');
+    const error = document.getElementById('exp-years-error');
+    if (experienceStatus.value === 'Experienced' && !expYearsRegex.test(expYears.value)) {
+        expYears.classList.add('invalid');
+        expYears.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        expYears.classList.add('valid');
+        expYears.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateJoiningDate() {
+    const joiningDate = document.getElementById('emp_joining_date');
+    const error = document.getElementById('joining-error');
+    if (!joiningDate.value) {
+        joiningDate.classList.add('invalid');
+        joiningDate.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    }
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const selectedDate = new Date(joiningDate.value);
+    
+    if (selectedDate < today) {
+        joiningDate.classList.add('invalid');
+        joiningDate.classList.remove('valid');
+        error.style.display = 'block';
+        return false;
+    } else {
+        joiningDate.classList.add('valid');
+        joiningDate.classList.remove('invalid');
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateExpDoc() {
+    const expDoc = document.getElementById('emp_experience_doc');
+    const error = document.getElementById('exp-doc-error');
+    if (experienceStatus.value === 'Experienced' && !validateFile(expDoc)) {
+        error.style.display = 'block';
+        return false;
+    } else {
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateSSCDoc() {
+    const sscDoc = document.getElementById('emp_ssc_doc');
+    const error = document.getElementById('ssc-error');
+    if (!validateFile(sscDoc)) {
+        error.style.display = 'block';
+        return false;
+    } else {
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateInterDoc() {
+    const interDoc = document.getElementById('emp_inter_doc');
+    const error = document.getElementById('inter-error');
+    if (!validateFile(interDoc)) {
+        error.style.display = 'block';
+        return false;
+    } else {
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateGradDoc() {
+    const gradDoc = document.getElementById('emp_grad_doc');
+    const error = document.getElementById('grad-error');
+    if (gradDoc.files.length > 0 && !validateFile(gradDoc)) {
+        error.style.display = 'block';
+        return false;
+    } else {
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+function validateFile(input) {
+    if (input.files.length === 0) return false;
+    
+    const file = input.files[0];
+    const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    
+    if (!validTypes.includes(file.type)) {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+        return false;
+    }
+    
+    if (file.size > maxSize) {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+        return false;
+    }
+    
+    input.classList.add('valid');
+    input.classList.remove('invalid');
+    return true;
+}
+
+function toggleExperienceFields() {
+    const experienceFields = document.getElementById("experienceFields");
+    const experienceStatus = document.getElementById("emp_experience_status").value;
+    experienceFields.style.display = experienceStatus === "Experienced" ? "block" : "none";
+    
+    // Clear validation when hiding fields
+    if (experienceStatus !== "Experienced") {
+        document.getElementById('emp_company_name').classList.remove('invalid', 'valid');
+        document.getElementById('emp_years_of_experience').classList.remove('invalid', 'valid');
+        document.getElementById('emp_experience_doc').classList.remove('invalid', 'valid');
+        document.getElementById('company-error').style.display = 'none';
+        document.getElementById('exp-years-error').style.display = 'none';
+        document.getElementById('exp-doc-error').style.display = 'none';
+    }
+}
+
+function toggleSubmitButton() {
+    const termsError = document.getElementById('terms-error');
+    if (!termsCheckbox.checked) {
+        termsError.style.display = 'block';
+    } else {
+        termsError.style.display = 'none';
+    }
+}
+
+function validateForm() {
+    let isValid = true;
+    
+    
+    const validations = [
+        validateName, validateEmail, validateDOB, validateMobile,
+        validateAddress, validateCity, validateState, validateZipcode,
+        validateBank, validateAccount, validateIFSC, validateJobRole,
+        validateDepartment, validateJoiningDate, validateSSCDoc, validateInterDoc
+    ];
+
+    
+    if (experienceStatus.value === 'Experienced') {
+        validations.push(validateCompany, validateExpYears, validateExpDoc);
+    }
+
+    
+    validations.forEach(validation => {
+        if (!validation()) isValid = false;
+    });
+
+    const termsError = document.getElementById('terms-error');
+    if (!termsCheckbox.checked) {
+        termsError.style.display = 'block';
+        isValid = false;
+    } else {
+        termsError.style.display = 'none';
+    }
+
+    return isValid;
+}
+
+async function saveEmployee(event) {
+    event.preventDefault();
+    
+    if (!validateForm()) {
+        alert('Please fix the errors in the form before submitting.');
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch("http://localhost:3000/save-employee", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.error || result.message || "Server returned unsuccessful response");
+        }
+
+        alert(result.message || "Form submitted successfully!");
+        form.reset();
+        
+        document.querySelectorAll('input, select').forEach(el => {
+            el.classList.remove('valid', 'invalid');
+        });
+        document.querySelectorAll('.error-message').forEach(el => {
+            el.style.display = 'none';
+        });
+
+    } catch (error) {
+        console.error('Fetch error:', error);
+        alert(`Error: ${error.message}\nPlease check your connection and try again.`);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+    }
+}
+    </script>
+</body>
+</html>

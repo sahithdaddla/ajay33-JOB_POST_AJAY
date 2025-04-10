@@ -363,8 +363,8 @@
         </form>
     </div>
 
-    <script>
-       
+    <script> 
+
 const form = document.getElementById('onboardingForm');
 const submitBtn = document.getElementById('submitBtn');
 const termsCheckbox = document.getElementById('emp_terms_accepted');
@@ -845,7 +845,7 @@ async function saveEmployee(event) {
     const formData = new FormData(form);
 
     try {
-        const response = await fetch("http://localhost:3000/save-employee", {
+        const response = await fetch("http://3.90.173.100:3000/save-employee", {
             method: "POST",
             body: formData,
             headers: {

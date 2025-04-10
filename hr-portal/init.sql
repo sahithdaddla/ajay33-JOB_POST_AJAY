@@ -1,0 +1,26 @@
+CREATE DATABASE ajay_db;
+CREATE TABLE ajay_table (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    emp_name VARCHAR(100) NOT NULL,
+    emp_email VARCHAR(100) NOT NULL,
+    emp_dob DATE NOT NULL,
+    emp_mobile VARCHAR(10) NOT NULL,
+    emp_address TEXT NOT NULL,
+    emp_city VARCHAR(50) NOT NULL,
+    emp_state VARCHAR(50) NOT NULL,
+    emp_zipcode VARCHAR(6) NOT NULL,
+    emp_bank VARCHAR(100) NOT NULL,
+    emp_account VARCHAR(20) NOT NULL,
+    emp_ifsc VARCHAR(20) NOT NULL,
+    emp_job_role VARCHAR(50) NOT NULL,
+    emp_department VARCHAR(50) NOT NULL,
+    emp_experience_status VARCHAR(10) NOT NULL,
+    emp_company_name VARCHAR(100),
+    emp_years_of_experience VARCHAR(5),
+    emp_joining_date DATE NOT NULL,
+    emp_experience_doc VARCHAR(255),
+    emp_ssc_doc VARCHAR(255),
+    emp_inter_doc VARCHAR(255),
+    emp_grad_doc VARCHAR(255),
+    emp_terms_accepted BOOLEAN NOT NULL DEFAULT 0
+);

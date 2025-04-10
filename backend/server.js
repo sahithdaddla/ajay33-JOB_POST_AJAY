@@ -13,9 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     process.env.FRONTEND_URL,   // Allow URL from .env file
-    "http://localhost:3001",    // Allow the frontend running on this port
-    "http://127.0.0.1:5500",   // Allow frontend running on port 5500
-    "http://localhost:5500"     // Allow frontend running on localhost port 5500
+    "http://3.90.173.100:8084",
+    "http://3.90.173.100:8083"
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -35,18 +34,18 @@ if (!fs.existsSync(uploadDir)) {
 // PostgreSQL client setup for the backend server
 const client = new Client({
   user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'new_employee_db',
-  password: process.env.DB_PASSWORD || 'Reddy@988',
+  host: process.env.DB_HOST || 'postgres',
+  database: process.env.DB_NAME || 'ajay_db',
+  password: process.env.DB_PASSWORD || 'admin123',
   port: process.env.DB_PORT || 5432,
 });
 
 // PostgreSQL pool setup for the frontend server
 const pool = new Pool({
   user: "postgres",
-  host: "localhost",
-  database: "new_employee_db",
-  password: "Reddy@988",
+  host: "postgres",
+  database: "ajay_db",
+  password: "admin123",
   port: 5432,
 });
 
@@ -56,7 +55,7 @@ const connectToDatabase = async () => {
     await client.connect();
     console.log("Connected to PostgreSQL database");
     await client.query(`
-      CREATE TABLE IF NOT EXISTS emp_onboarding (
+      CREATE TABLE IF NOT EXISTS ajay_table (
         id SERIAL PRIMARY KEY,
         emp_name VARCHAR(255) NOT NULL,
         emp_email VARCHAR(255) UNIQUE NOT NULL,
@@ -83,7 +82,7 @@ const connectToDatabase = async () => {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
-    console.log("Verified emp_onboarding table exists");
+    console.log("Verified ajay_table table exists");
   } catch (err) {
     console.error("Database connection error:", err.message);
     setTimeout(connectToDatabase, 5000);
@@ -140,7 +139,7 @@ app.post("/save-employee", upload.fields([
     } = req.body;
 
     const sql = `
-      INSERT INTO emp_onboarding 
+      INSERT INTO ajay_table
       (emp_name, emp_email, emp_dob, emp_mobile, emp_address, emp_city, emp_state, 
       emp_zipcode, emp_bank, emp_account, emp_ifsc, emp_job_role, emp_department, 
       emp_experience_status, emp_company_name, emp_years_of_experience, emp_joining_date, 
@@ -213,7 +212,7 @@ app.post("/save-employee", upload.fields([
 // Frontend API: Fetch Employee Data (GET)
 app.get("/employees", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM emp_onboarding");  
+    const result = await pool.query("SELECT * FROM ajay_table");  
     res.json(result.rows);
   } catch (error) {
     console.error("Error fetching data:", error);

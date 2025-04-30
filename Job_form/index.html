@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting Form</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cae;
+            --accent-color: #ff7e5f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+            /* --error-color: #dc3545; */
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #ffffff;
+            padding: 20px;
+        }
+        
+        /* Form Container */
+        .form-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: var(--error-color);
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Skills Input Styling */
+        #skillSet {
+            padding: 10px;
+        }
+        
+        .skills-hint {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Validation Styles */
+        .error {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        input:invalid,
+        textarea:invalid {
+            border-color: var(--error-color);
+        }
+        
+        input:valid,
+        textarea:valid {
+            border-color: #28a745;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+      
+        <form id="jobForm">
+            <div class="form-group">
+                <label for="jobTitle" class="required-field">Job Title</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+                <div class="error" id="jobTitleError">Please enter a job title</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="jobDescription" class="required-field">Job Description</label>
+                <textarea id="jobDescription" name="jobDescription" required></textarea>
+                <div class="error" id="jobDescriptionError">Please enter a job description</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="skillSet" class="required-field">Required Skills</label>
+                <input type="text" id="skillSet" name="skillSet" placeholder="e.g., JavaScript, Python, Project Management" required>
+                <div class="skills-hint">Separate multiple skills with commas</div>
+                <div class="error" id="skillSetError">Please enter at least one required skill</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="experience" class="required-field">Required Experience (years)</label>
+                <input type="number" id="experience" name="experience" min="0" step="0.5" required>
+                <div class="error" id="experienceError">Please enter required years of experience</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="jobType" class="required-field">Job Type</label>
+                <select id="jobType" name="jobType" required>
+                    <option value="">Select job type</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="contract">Contract</option>
+                    <option value="internship">Internship</option>
+                    <option value="remote">Remote</option>
+                </select>
+                <div class="error" id="jobTypeError">Please select a job type</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="location" class="required-field">Location</label>
+                <input type="text" id="location" name="location" required>
+                <div class="error" id="locationError">Please enter a location</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="salary" class="required-field">Salary Range</label>
+                <input type="text" id="salary" name="salary" placeholder="e.g., ₹5,00,000 - ₹7,00,000 or Competitive" required>
+                <div class="error" id="salaryError">Please enter salary information</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="deadline" class="required-field">Application Deadline</label>
+                <input type="date" id="deadline" name="deadline" required>
+                <div class="error" id="deadlineError">Please select a deadline date</div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Post Job</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('jobForm');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Reset error messages
+                const errorElements = document.querySelectorAll('.error');
+                errorElements.forEach(el => el.style.display = 'none');
+                
+                // Validate each field
+                let isValid = true;
+                
+                // [Previous validation logic remains the same...]
+                
+                // If form is valid, submit to server
+                if (isValid) {
+                    const formData = {
+                        jobTitle: form.jobTitle.value.trim(),
+                        jobDescription: form.jobDescription.value.trim(),
+                        skillSet: form.skillSet.value.split(',').map(skill => skill.trim()),
+                        experience: parseFloat(form.experience.value),
+                        jobType: form.jobType.value,
+                        location: form.location.value.trim(),
+                        salary: form.salary.value.trim(),
+                        deadline: form.deadline.value
+                    };
+                    
+                    try {
+                        const submitBtn = document.querySelector('.submit-btn');
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Posting...';
+                        
+                        const response = await fetch('http://localhost:3000/api/jobs', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formData)
+                        });
+                        
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Failed to post job');
+                        }
+                        
+                        const data = await response.json();
+                        
+                        // Create a more elegant success message
+                        const successMessage = document.createElement('div');
+                        successMessage.style.backgroundColor = '#28a745';
+                        successMessage.style.color = 'white';
+                        successMessage.style.padding = '15px';
+                        successMessage.style.borderRadius = '5px';
+                        successMessage.style.marginTop = '20px';
+                        successMessage.style.textAlign = 'center';
+                        successMessage.innerHTML = `
+                            <h3>Job Posted Successfully!</h3>
+                            <p>Job ID: ${data.id}</p>
+                            <p>You can view it <a href="/jobs/${data.id}" style="color: white; text-decoration: underline;">here</a></p>
+                        `;
+                        
+                        form.parentNode.insertBefore(successMessage, form.nextSibling);
+                        form.reset();
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                        
+                        // Show error message in the form
+                        const errorDisplay = document.createElement('div');
+                        errorDisplay.style.backgroundColor = '#dc3545';
+                        errorDisplay.style.color = 'white';
+                        errorDisplay.style.padding = '15px';
+                        errorDisplay.style.borderRadius = '5px';
+                        errorDisplay.style.marginTop = '20px';
+                        errorDisplay.textContent = `Error: ${error.message}`;
+                        
+                        form.parentNode.insertBefore(errorDisplay, form.nextSibling);
+                    } finally {
+                        const submitBtn = document.querySelector('.submit-btn');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Post Job';
+                    }
+                }
+            });
+            
+            form.addEventListener('input', function(e) {
+                const target = e.target;
+                const errorId = target.name + 'Error';
+                const errorElement = document.getElementById(errorId);
+                
+                if (errorElement) {
+                    if (target.checkValidity()) {
+                        errorElement.style.display = 'none';
+                    } else {
+                        errorElement.style.display = 'block';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

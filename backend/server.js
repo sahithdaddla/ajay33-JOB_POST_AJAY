@@ -16,7 +16,18 @@ const pool = new Pool({
 });
 
 // Middleware
-app.use(cors()); // Enable CORS for all routes
+app.use(cors({
+  origin: [
+    process.env.FRONTEND_URL,
+    "http://localhost:3001",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+   
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));

@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-light: #6366f1;
+            --primary: #140e80;
+            --primary-light: #2226ff;
             --secondary: #6b7280;
             --light: #f9fafb;
             --dark: #111827;
@@ -24,7 +24,7 @@
         }
 
         body {
-            background-color: #ffffff;
+            
             color: var(--dark);
             line-height: 1.6;
         }
@@ -32,94 +32,65 @@
         header {
             position: relative;
             text-align: center;
-            height: 120px;
-            background: linear-gradient(135deg, #6300cd 0%, #2575fc 100%);
-            color: #fff;
-            border-radius: 5px;
+            padding: 1rem 1rem;
+            background: linear-gradient(135deg, #2a41eb 0%, #3b82f6 100%);
+            color: white;
             overflow: hidden;
-            display: flex;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-direction: column;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-left: auto;
-            margin-right: auto;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 46px;
-            color: white;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
             position: relative;
             z-index: 2;
+            animation: fadeInDown 1s ease-out;
         }
+
         header p {
-            font-weight: 100;
-            font-size: 24px;
-            margin-top: 5px;
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
-        @keyframes moveCircles {
-            0% {
-                transform: translateY(0) translateX(0);
-            }
-            50% {
-                transform: translateY(-50%) translateX(-50%);
-            }
-            100% {
-                transform: translateY(0) translateX(0);
-            }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .banner-background {
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            overflow: hidden;
+            opacity: 0.2;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10%);
+            background-size: 30px 30px;
+            animation: pulse 15s infinite linear;
         }
 
-        .circle {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: moveCircles 10s infinite linear;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
-
-        .circle:nth-child(1) {
-            top: 10%;
-            left: 20%;
-            animation-duration: 8s;
-        }
-
-        .circle:nth-child(2) {
-            top: 50%;
-            left: 70%;
-            animation-duration: 12s;
-        }
-
-        .circle:nth-child(3) {
-            top: 80%;
-            left: 40%;
-            animation-duration: 15s;
-        }
-
 
         .job-container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 2rem auto;
             padding: 0 1rem;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
@@ -127,66 +98,68 @@
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            display: flex;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid var(--border);
+            animation: cardFadeIn 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .job-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .job-icon {
-            width: 270px;
-            background-color: var(--light);
+        .job-card-header {
+            padding: 1rem;
+            background: var(--light);
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            gap: 1rem;
         }
 
         .job-icon img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
         }
 
-        .job-content {
-            flex: 1;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
         .job-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            font-weight: 600;
             color: var(--dark);
         }
 
         .job-type {
-            background-color: var(--primary);
+            background: var(--primary);
             color: white;
-            padding: 0.3rem 1rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            margin-left: auto;
+        }
+
+        .job-content {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex-grow: 1;
         }
 
         .job-meta {
             display: flex;
-            gap: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
             color: var(--secondary);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .job-meta span {
@@ -198,60 +171,180 @@
         .job-skills {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin: 0.3rem 0;
+            gap: 0.5rem;
         }
 
         .skill-tag {
-            background-color: #eef2ff;
+            background: #eef2ff;
             color: var(--primary);
-            padding: 0.4rem 0.9rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
         .job-description {
             color: var(--secondary);
-            line-height: 1.5;
+            font-size: 0.9rem;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .job-dates {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
         }
 
         .job-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 0.5rem;
+            padding: 0 1rem 1rem;
+            margin-top: auto;
         }
 
-        .job-posted {
-            font-size: 0.85rem;
-            color: var(--secondary);
+        .view-details-btn {
+            background: white;
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid var(--primary);
+        }
+
+        .view-details-btn:hover {
+            background: #f0f0ff;
         }
 
         .apply-btn {
-            background-color: var(--primary);
+            background: var(--primary);
             color: white;
-            padding: 0.6rem 1.8rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 6px;
             text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 600;
-            transition: background-color 0.2s;
+            transition: background 0.2s;
         }
 
         .apply-btn:hover {
-            background-color: var(--primary-light);
+            background: var(--primary-light);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-job-type {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .modal-job-description {
+            line-height: 1.7;
+            color: var(--dark);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-apply-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .modal-apply-btn:hover {
+            background: var(--primary-light);
         }
 
         .status-message {
+            grid-column: 1 / -1;
             padding: 2rem;
             text-align: center;
             font-size: 1.1rem;
             border-radius: 8px;
-            margin: 1rem 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .loading {
@@ -259,137 +352,168 @@
         }
 
         .error {
-            background-color: #fee2e2;
+            background: #fee2e2;
             color: var(--error);
         }
 
         @media (max-width: 768px) {
-            .job-card {
-                flex-direction: column;
-            }
-            
-            .job-icon {
-                width: 100%;
-                padding: 1.5rem 0;
-            }
-            
-            .job-header {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-            
-            .job-meta {
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1rem; }
+            .job-container { grid-template-columns: 1fr; }
+            .job-footer {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-
-            .job-footer {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
+            .view-details-btn, .apply-btn {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="banner-background">
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-        </div>
-        <h1>Job Portal</h1>
-      <p>Apply for job suitable to your skills</p>
+        <div class="header-bg"></div>
+        <h1>Discover Your Next Career</h1>
+        <p>Browse exciting job opportunities tailored to your skills</p>
     </header>
 
- 
-    <!-- Job Listings Container -->
     <div class="job-container" id="jobListings">
         <div class="status-message loading">
             <i class="fas fa-spinner fa-spin"></i> Loading job listings...
         </div>
     </div>
 
+    <!-- Modal for job details -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalJobTitle"></h2>
+                <span class="modal-job-type" id="modalJobType"></span>
+                <div class="job-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> <span id="modalJobLocation"></span></span>
+                    <span><i class="fas fa-money-bill-wave"></i> <span id="modalJobSalary"></span></span>
+                    <span><i class="fas fa-briefcase"></i> <span id="modalJobExperience"></span> yrs</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Job Description</h3>
+                    <p class="modal-job-description" id="modalJobDescription"></p>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Skills Required</h3>
+                    <div class="job-skills" id="modalJobSkills"></div>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Additional Information</h3>
+                    <div class="job-dates">
+                        <span><i class="far fa-calendar-alt"></i> Posted: <span id="modalJobPosted"></span></span>
+                        <span><i class="far fa-clock"></i> Deadline: <span id="modalJobDeadline"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-apply-btn" id="modalApplyBtn">Apply Now</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const jobListings = document.getElementById('jobListings');
+            const modal = document.getElementById('jobModal');
+            const closeModal = document.querySelector('.close-modal');
             
-          
+            // Close modal when clicking X or outside modal
+            closeModal.addEventListener('click', () => modal.style.display = 'none');
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+
             fetch('http://localhost:3000/api/jobs')
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
+                    if (!response.ok) throw new Error('Network response was not ok');
                     return response.json();
                 })
                 .then(data => {
-                    // Clear loading state
                     jobListings.innerHTML = '';
-                    
-                    if (data.jobs && data.jobs.length > 0) {
-                        // Create job cards for each listing
-                        data.jobs.forEach(job => {
-                            const jobCard = document.createElement('div');
-                            jobCard.className = 'job-card';
-                            
-                            // Format posted date
-                            const postedDate = new Date(job.posted_at).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric'
-                            });
-                            
-                            // Create skills tags
-                            let skillsHTML = '';
-                            if (job.skill_set && job.skill_set.length > 0) {
-                                skillsHTML = job.skill_set.map(skill => 
-                                    `<span class="skill-tag">${skill.trim()}</span>`
-                                ).join('');
-                            }
-                            
-                            // Job card HTML
-                            jobCard.innerHTML = `
+                    const jobs = data.jobs || [];
+
+                    if (jobs.length === 0) {
+                        jobListings.innerHTML = '<div class="status-message">No job openings available at the moment.</div>';
+                        return;
+                    }
+
+                    jobs.forEach(job => {
+                        const jobCard = document.createElement('div');
+                        jobCard.className = 'job-card';
+
+                        const postedDate = new Date(job.posted_at).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+
+                        const deadlineDate = new Date(job.deadline).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+
+                        const skillsHTML = job.skill_set?.map(skill => 
+                            `<span class="skill-tag">${skill.trim()}</span>`
+                        ).join('') || '';
+
+                        jobCard.innerHTML = `
+                            <div class="job-card-header">
                                 <div class="job-icon">
                                     <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" alt="Job Icon">
                                 </div>
-                                <div class="job-content">
-                                    <div class="job-header">
-                                        <h1 class="job-title">${job.job_title}</h1>
-                                        <span class="job-type">${formatJobType(job.job_type)}</span>
-                                    </div>
-                                    <div class="job-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
-                                        <span><i class="fas fa-money-bill-wave"></i> ${job.salary}</span>
-                                        <span><i class="fas fa-briefcase"></i> ${job.experience} yrs exp</span>
-                                    </div>
-                                    <div class="job-skills">
-                                        ${skillsHTML}
-                                    </div>
-                                    <p class="job-description">${job.job_description}</p>
-                                    <div class="job-footer">
-                                        <span class="job-posted">Posted: ${postedDate}</span>
-                                        <a href="/jobs/${job.id}" class="apply-btn">Apply Now</a>
-                                    </div>
+                                <h2 class="job-title">${job.job_title}</h2>
+                                <span class="job-type">${formatJobType(job.job_type)}</span>
+                            </div>
+                            <div class="job-content">
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> ${job.salary}</span>
+                                    <span><i class="fas fa-briefcase"></i> ${job.experience} yrs</span>
                                 </div>
-                            `;
-                            
-                            jobListings.appendChild(jobCard);
+                                <div class="job-skills">${skillsHTML}</div>
+                                <p class="job-description">${job.job_description}</p>
+                                <div class="job-dates">
+                                    <span><i class="far fa-calendar-alt"></i> Posted: ${postedDate}</span>
+                                    <span><i class="far fa-clock"></i> Deadline: ${deadlineDate}</span>
+                                </div>
+                                <div class="job-footer">
+                                    <button class="view-details-btn" data-job-id="${job.id}">View Details</button>
+                                    <a href="/jobs/${job.id}" class="apply-btn">Apply Now</a>
+                                </div>
+                            </div>
+                        `;
+                        jobListings.appendChild(jobCard);
+                    });
+
+                    // Add event listeners to all view details buttons
+                    document.querySelectorAll('.view-details-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const jobId = this.getAttribute('data-job-id');
+                            const job = jobs.find(j => j.id == jobId);
+                            if (job) showJobModal(job);
                         });
-                    } else {
-                        jobListings.innerHTML = '<div class="status-message">No job openings available at the moment.</div>';
-                    }
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching jobs:', error);
                     jobListings.innerHTML = `
-                        <div class="status-message error">
+                        <div class="status-message error" style="background:white;">
                             <i class="fas fa-exclamation-triangle"></i> Failed to load jobs. Please try again later.
                             <p style="margin-top: 10px; font-size: 0.9rem;">Error: ${error.message}</p>
                         </div>
                     `;
                 });
-                
-            // Format job type for display
+
             function formatJobType(type) {
                 const types = {
                     'full-time': 'Full Time',
@@ -399,6 +523,37 @@
                     'remote': 'Remote'
                 };
                 return types[type] || type;
+            }
+
+            function showJobModal(job) {
+                const postedDate = new Date(job.posted_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                const deadlineDate = new Date(job.deadline).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                const skillsHTML = job.skill_set?.map(skill => 
+                    `<span class="skill-tag">${skill.trim()}</span>`
+                ).join('') || '';
+
+                document.getElementById('modalJobTitle').textContent = job.job_title;
+                document.getElementById('modalJobType').textContent = formatJobType(job.job_type);
+                document.getElementById('modalJobLocation').textContent = job.location;
+                document.getElementById('modalJobSalary').textContent = job.salary;
+                document.getElementById('modalJobExperience').textContent = job.experience;
+                document.getElementById('modalJobDescription').textContent = job.job_description;
+                document.getElementById('modalJobSkills').innerHTML = skillsHTML;
+                document.getElementById('modalJobPosted').textContent = postedDate;
+                document.getElementById('modalJobDeadline').textContent = deadlineDate;
+                document.getElementById('modalApplyBtn').href = `/jobs/${job.id}`;
+
+                modal.style.display = 'block';
             }
         });
     </script>

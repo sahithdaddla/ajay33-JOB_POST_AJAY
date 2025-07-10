@@ -432,7 +432,7 @@
                 if (e.target === modal) modal.style.display = 'none';
             });
 
-            fetch('http://localhost:3000/api/jobs')
+            fetch('http://13.53.177.142:3102/api/jobs')
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.json();

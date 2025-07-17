@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: jobpost_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: new_employee_db
+    ports:
+      - "5529:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build:
+      context: ./backend
+    container_name: jobpost_backend
+    ports:
+      - "3102:3102"
+    depends_on:
+      - postgres
+    environment:
+      - PORT=3102
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - DB_NAME=new_employee_db
+      - DB_HOST=postgres
+      - DB_PORT=5432
+
+  job_posts:
+    build:
+      context: ./Job_Posts
+    container_name: job_posts_ui
+    ports:
+      - "8340:80"
+    depends_on:
+      - backend
+
+  job_form:
+    build:
+      context: ./Job_form
+    container_name: job_form_ui
+    ports:
+      - "8341:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+

@@ -489,7 +489,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="http://51.20.32.194:8031/" class="modal-apply-btn" id="modalApplyBtn">Apply Now</a>
+                <a href="http://51.20.3.185:8031/" class="modal-apply-btn" id="modalApplyBtn">Apply Now</a>
             </div>
         </div>
     </div>
@@ -505,7 +505,7 @@
                 if (e.target === modal) modal.style.display = 'none';
             });
 
-            fetch('http://51.20.32.194:3102/api/jobs')
+            fetch('http://51.20.3.185:3102/api/jobs')
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.json();
@@ -559,7 +559,7 @@
                                 </div>
                                 <div class="job-footer">
                                     <button class="view-details-btn" data-job-id="${job.id}">View Details</button>
-                                    <a href="http://51.20.32.194:8031/" class="apply-btn">Apply Now</a>
+                                    <a href="http://51.20.3.185:8031/" class="apply-btn">Apply Now</a>
                                 </div>
                             </div>
                         `;
@@ -621,7 +621,7 @@
                 document.getElementById('modalJobSkills').innerHTML = skillsHTML;
                 document.getElementById('modalJobPosted').textContent = postedDate;
                 document.getElementById('modalJobDeadline').textContent = deadlineDate;
-                document.getElementById('modalApplyBtn').href = 'http://51.20.32.194:8031/';
+                document.getElementById('modalApplyBtn').href = 'http://51.20.3.185:8031/';
 
                 modal.style.display = 'block';
             }

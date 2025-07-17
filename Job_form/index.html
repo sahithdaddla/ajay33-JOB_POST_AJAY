@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Posting Form</title>
+    <title>Create a Job Listing</title>
     <style>
         /* Base Styles */
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6b8cae;
-            --accent-color: #ff7e5f;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
-            --success-color: #28a745;
-            /* --error-color: #dc3545; */
+            --primary-color: #4f46e5; /* Modern indigo */
+            --secondary-color: #6b7280; /* Neutral gray */
+            --accent-color: #f97316; /* Vibrant orange */
+            --light-color: #f8fafc; /* Soft white */
+            --dark-color: #1f2937; /* Deep gray */
+            --success-color: #10b981; /* Emerald green */
+            --error-color: #ef4444; /* Bright red */
+            --gradient-start: #4f46e5;
+            --gradient-end: #7c3aed;
         }
         
         * {
@@ -23,11 +25,106 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--dark-color);
-            background-color: #ffffff;
+            background-color: white;
             padding: 20px;
+        }
+        
+       
+        
+        
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.15); opacity: 0.15; }
+            100% { transform: scale(1); opacity: 0.3; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+          header {
+            position: relative;
+            text-align: center;
+            height: 140px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            animation: slideIn 1s ease-out;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-weight: 300;
+            font-size: 1.1rem;
+            margin-top: 10px;
+             animation: slideIn 1.2s ease-out;
+            opacity: 0.9;
+        }
+
+        @keyframes moveCircles {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-50%); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        .banner-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: moveCircles 15s infinite linear;
+        }
+
+        .circle:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-duration: 15s;
+        }
+
+        .circle:nth-child(2) {
+            top: 50%;
+            left: 70%;
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+
+        .circle:nth-child(3) {
+            top: 80%;
+            left: 40%;
+            animation-duration: 25s;
         }
         
         /* Form Container */
@@ -35,21 +132,28 @@
             max-width: 1200px;
             margin: 30px auto;
             padding: 30px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+         background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .form-container:hover {
+            transform: translateY(-2px);
         }
         
         h1 {
             text-align: center;
             margin-bottom: 30px;
             color: var(--primary-color);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 2rem;
         }
         
         /* Form Elements */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            position: relative;
         }
         
         label {
@@ -57,6 +161,7 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--dark-color);
+            font-size: 1rem;
         }
         
         .required-field::after {
@@ -70,11 +175,13 @@
         textarea,
         select {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border 0.3s ease;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            
+            transition: all 0.3s ease;
+            background:linear-gradient( #dbe3ff3e,rgba(244, 248, 255, 0.454));
         }
         
         input:focus,
@@ -82,60 +189,218 @@
         select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+            background-color: white;
         }
         
         textarea {
-            min-height: 120px;
-            resize: vertical;
+            min-height: 180px;
+            resize: none;
+        }
+        
+        /* Date Picker Styling to Hide Disabled Dates */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        
+        input[type="date"]::-webkit-datetime-edit-day-field,
+        input[type="date"]::-webkit-datetime-edit-month-field,
+        input[type="date"]::-webkit-datetime-edit-year-field {
+            color: var(--dark-color);
         }
         
         /* Skills Input Styling */
         #skillSet {
-            padding: 10px;
+            padding: 12px 16px;
         }
         
         .skills-hint {
             font-size: 0.85rem;
-            color: #6c757d;
-            margin-top: 5px;
+            color: var(--secondary-color);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* Character Count */
+        .char-count {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
         
         /* Submit Button */
         .submit-btn {
             display: block;
             width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 500;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.3s ease;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
         }
         
         .submit-btn:hover {
-            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
         }
         
         /* Validation Styles */
         .error {
             color: var(--error-color);
             font-size: 0.85rem;
-            margin-top: 5px;
+            margin-top: 6px;
             display: none;
+            position: absolute;
+            bottom: -22px;
+            left: 0;
         }
         
-        input:invalid,
-        textarea:invalid {
-            border-color: var(--error-color);
+        .error.visible {
+            display: block;
         }
         
-        input:valid,
-        textarea:valid {
-            border-color: #28a745;
+        .invalid {
+            border-color: var(--error-color) !important;
+            background-color: #fef2f2;
+        }
+        
+        /* Notification Popup */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-in 2.5s forwards;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            animation: slideInModal 0.3s ease-out;
+        }
+        
+        @keyframes slideInModal {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .modal-content h2 {
+            color: var(--dark-color);
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .modal-content p {
+            color: var(--secondary-color);
+            margin-bottom: 24px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        
+        .modal-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn.confirm {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .modal-btn.confirm:hover {
+            background: var(--gradient-end);
+        }
+        
+        .modal-btn.cancel {
+            background: #e5e7eb;
+            color: var(--dark-color);
+            border: none;
+        }
+        
+        .modal-btn.cancel:hover {
+            background: #d1d5db;
         }
         
         /* Responsive Design */
@@ -143,40 +408,63 @@
             .form-container {
                 padding: 20px;
             }
+            .banner h1 {
+                font-size: 1.8rem;
+            }
+            .banner p {
+                font-size: 1rem;
+            }
+            .notification {
+                width: 90%;
+                right: 5%;
+            }
+            .modal-content {
+                width: 95%;
+            }
         }
     </style>
 </head>
 <body>
+     <header>
+            <div class="banner-background">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+          <h1> One Portal. Limitless Talent 🚀</h1>
+            <p>Connect with top talent by creating a compelling job listing 🌟</p>
+        </header>
+    
     <div class="form-container">
-      
         <form id="jobForm">
             <div class="form-group">
-                <label for="jobTitle" class="required-field">Job Title</label>
-                <input type="text" id="jobTitle" name="jobTitle" required>
-                <div class="error" id="jobTitleError">Please enter a job title</div>
+                <label for="jobTitle" class="required-field">📌 Job Title</label>
+                <input type="text" id="jobTitle" name="jobTitle" required pattern="^\S.*\S$" minlength="5" maxlength="80">
+                <div class="error" id="jobTitleError">Please enter a valid job title (no leading/trailing spaces)</div>
             </div>
             
             <div class="form-group">
-                <label for="jobDescription" class="required-field">Job Description</label>
-                <textarea id="jobDescription" name="jobDescription" required></textarea>
-                <div class="error" id="jobDescriptionError">Please enter a job description</div>
+                <label for="jobDescription" class="required-field">📝 Job Description</label>
+                <textarea id="jobDescription" name="jobDescription" required minlength="50" maxlength="5000"></textarea>
+                <div class="char-count" id="jobDescriptionCount">Characters: 0/5000</div>
+                <div class="error" id="jobDescriptionError"></div>
             </div>
             
             <div class="form-group">
-                <label for="skillSet" class="required-field">Required Skills</label>
-                <input type="text" id="skillSet" name="skillSet" placeholder="e.g., JavaScript, Python, Project Management" required>
-                <div class="skills-hint">Separate multiple skills with commas</div>
-                <div class="error" id="skillSetError">Please enter at least one required skill</div>
+                <label for="skillSet" class="required-field">🛠️ Required Skills</label>
+                <input type="text" id="skillSet" name="skillSet" placeholder="e.g., JavaScript, Python, Project Management" required pattern="^\S.*\S$" minlength="2" maxlength="200">
+                <div class="skills-hint">👉 Separate multiple skills with commas</div>
+                <div class="error" id="skillSetError">Please enter at least one valid skill (no leading/trailing spaces)</div>
             </div>
             
             <div class="form-group">
-                <label for="experience" class="required-field">Required Experience (years)</label>
-                <input type="number" id="experience" name="experience" min="0" step="0.5" required>
-                <div class="error" id="experienceError">Please enter required years of experience</div>
+                <label for="experience" class="required-field">⏳ Required Experience</label>
+                <input type="number" id="experience" name="experience" required pattern="^[0-9]+(\.[0-9])?$" step="0.1">
+                <div class="error" id="experienceError">Enter a number between 1 and 40 (e.g., 5 or 5.5)</div>
             </div>
             
             <div class="form-group">
-                <label for="jobType" class="required-field">Job Type</label>
+                <label for="jobType" class="required-field">💼 Job Type</label>
                 <select id="jobType" name="jobType" required>
                     <option value="">Select job type</option>
                     <option value="full-time">Full-time</option>
@@ -189,125 +477,301 @@
             </div>
             
             <div class="form-group">
-                <label for="location" class="required-field">Location</label>
-                <input type="text" id="location" name="location" required>
-                <div class="error" id="locationError">Please enter a location</div>
+                <label for="location" class="required-field">📍 Location</label>
+                <input type="text" id="location" name="location" required pattern="^[A-Za-z\s,]{3,100}$">
+                <div class="error" id="locationError">Enter 3-60 letters, commas allowed between words, no leading/trailing spaces or commas, no consecutive spaces or commas</div>
             </div>
             
             <div class="form-group">
-                <label for="salary" class="required-field">Salary Range</label>
-                <input type="text" id="salary" name="salary" placeholder="e.g., ₹5,00,000 - ₹7,00,000 or Competitive" required>
-                <div class="error" id="salaryError">Please enter salary information</div>
+                <label for="salary" class="required-field">💰 Salary Range</label>
+                <input type="text" id="salary" name="salary" required pattern="^\S.*\S$">
+                <div class="error" id="salaryError">Enter salary between ₹10,000 and ₹5,80,00,000</div>
             </div>
             
             <div class="form-group">
-                <label for="deadline" class="required-field">Application Deadline</label>
+                <label for="deadline" class="required-field">📅 Application Deadline</label>
                 <input type="date" id="deadline" name="deadline" required>
-                <div class="error" id="deadlineError">Please select a deadline date</div>
+                <div class="error" id="deadlineError">Select a date between today and 2 years from now</div>
             </div>
             
-            <button type="submit" class="submit-btn">Post Job</button>
+            <button type="submit" class="submit-btn">Post Job ✨</button>
         </form>
     </div>
+    
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h2>Confirm Job Posting 📨</h2>
+            <p>Are you sure you want to post this job listing? Please review all details before submitting.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" id="confirmSubmit">Yes, Post It! ✅</button>
+                <button class="modal-btn cancel" id="cancelSubmit">Cancel ❌</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('jobForm');
+            const modal = document.getElementById('confirmModal');
+            const confirmBtn = document.getElementById('confirmSubmit');
+            const cancelBtn = document.getElementById('cancelSubmit');
+            const jobDescription = document.getElementById('jobDescription');
+            const jobDescriptionCount = document.getElementById('jobDescriptionCount');
+            const today = new Date();
+            const minDate = today.toISOString().split('T')[0];
+            const maxDate = new Date(today.setFullYear(today.getFullYear() + 2)).toISOString().split('T')[0];
+            const deadlineInput = document.getElementById('deadline');
+            deadlineInput.setAttribute('min', minDate);
+            deadlineInput.setAttribute('max', maxDate);
             
-            form.addEventListener('submit', async function(e) {
+            // Character count for job description
+            jobDescription.addEventListener('input', function() {
+                const charCount = jobDescription.value.length; // Count all characters including spaces
+                jobDescriptionCount.textContent = `Characters: ${charCount}/5000`;
+                jobDescriptionCount.style.color = charCount > 5000 ? 'var(--error-color)' : 'var(--secondary-color)';
+            });
+            
+            // Validation functions
+            function validateExperience(value) {
+                if (!/^[0-9]+(\.[0-9])?$/.test(value)) return false;
+                const num = parseFloat(value);
+                return !isNaN(num) && num >= 1 && num <= 40;
+            }
+            
+            function validateLocation(value) {
+                return /^[A-Za-z\s,]{3,60}$/.test(value) && 
+                       !/^\s|\s$|\s\s|^,|,$|,,/.test(value) && 
+                       /^[A-Za-z\s,]+$/.test(value);
+            }
+            
+            function validateSalary(value) {
+                const cleanValue = value.replace(/[^0-9-]/g, '');
+                const range = cleanValue.split('-').map(num => parseInt(num.trim()));
+                if (range.length === 1) {
+                    const num = range[0];
+                    return num >= 10000 && num <= 58000000;
+                } else if (range.length === 2) {
+                    const [min, max] = range;
+                    return min >= 10000 && max <= 58000000 && min <= max;
+                }
+                return false;
+            }
+            
+            function validateJobDescription(value) {
+                const length = value.trim().length;
+                return length >= 50 && length <= 5000;
+            }
+            
+            function validateDeadline(value) {
+                return value >= minDate && value <= maxDate;
+            }
+            
+            // Real-time validation
+            form.addEventListener('input', function(e) {
+                const target = e.target;
+                const errorElement = document.getElementById(target.name + 'Error');
+                
+                if (!errorElement) return;
+                
+                let errorMessage = '';
+                let isValid = true;
+                
+                switch (target.name) {
+                    case 'jobTitle':
+                        isValid = /^\S.*\S$/.test(target.value) && target.value.length > 0;
+                        errorMessage = 'Please enter a valid job title (no leading/trailing spaces)';
+                        break;
+                    case 'jobDescription':
+                        isValid = validateJobDescription(target.value);
+                        errorMessage = `Description must be 50-5000 characters (current: ${target.value.trim().length})`;
+                        break;
+                    case 'skillSet':
+                        isValid = /^\S.*\S$/.test(target.value) && target.value.length > 0;
+                        errorMessage = 'Please enter at least one valid skill (no leading/trailing spaces)';
+                        break;
+                    case 'experience':
+                        isValid = validateExperience(target.value);
+                        errorMessage = 'Enter a number between 1 and 40 (e.g., 5 or 5.5)';
+                        break;
+                    case 'jobType':
+                        isValid = target.value !== '';
+                        errorMessage = 'Please select a job type';
+                        break;
+                    case 'location':
+                        isValid = validateLocation(target.value);
+                        errorMessage = 'Enter 3-60 letters, commas allowed between words, no leading/trailing spaces or commas, no consecutive spaces or commas';
+                        break;
+                    case 'salary':
+                        isValid = validateSalary(target.value);
+                        errorMessage = 'Enter salary between ₹10,000 and ₹5,80,00,000';
+                        break;
+                    case 'deadline':
+                        isValid = validateDeadline(target.value);
+                        errorMessage = 'Select a date between today and 2 years from now';
+                        break;
+                }
+                
+                errorElement.textContent = errorMessage;
+                errorElement.classList.toggle('visible', !isValid);
+                target.classList.toggle('invalid', !isValid);
+            });
+            
+            // Show confirmation modal on submit
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Reset error messages
                 const errorElements = document.querySelectorAll('.error');
-                errorElements.forEach(el => el.style.display = 'none');
+                errorElements.forEach(el => {
+                    el.classList.remove('visible');
+                    el.textContent = '';
+                });
                 
-                // Validate each field
+                // Validate all fields
                 let isValid = true;
+                const fields = ['jobTitle', 'jobDescription', 'skillSet', 'experience', 'jobType', 'location', 'salary', 'deadline'];
                 
-                // [Previous validation logic remains the same...]
-                
-                // If form is valid, submit to server
-                if (isValid) {
-                    const formData = {
-                        jobTitle: form.jobTitle.value.trim(),
-                        jobDescription: form.jobDescription.value.trim(),
-                        skillSet: form.skillSet.value.split(',').map(skill => skill.trim()),
-                        experience: parseFloat(form.experience.value),
-                        jobType: form.jobType.value,
-                        location: form.location.value.trim(),
-                        salary: form.salary.value.trim(),
-                        deadline: form.deadline.value
-                    };
+                fields.forEach(field => {
+                    const input = form[field];
+                    const errorElement = document.getElementById(field + 'Error');
+                    let errorMessage = '';
                     
-                    try {
-                        const submitBtn = document.querySelector('.submit-btn');
-                        submitBtn.disabled = true;
-                        submitBtn.textContent = 'Posting...';
-                        
-                        const response = await fetch('http://13.53.177.142:3102/api/jobs', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(formData)
-                        });
-                        
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            throw new Error(errorData.error || 'Failed to post job');
-                        }
-                        
-                        const data = await response.json();
-                        
-                        // Create a more elegant success message
-                        const successMessage = document.createElement('div');
-                        successMessage.style.backgroundColor = '#28a745';
-                        successMessage.style.color = 'white';
-                        successMessage.style.padding = '15px';
-                        successMessage.style.borderRadius = '5px';
-                        successMessage.style.marginTop = '20px';
-                        successMessage.style.textAlign = 'center';
-                        successMessage.innerHTML = `
-                            <h3>Job Posted Successfully!</h3>
-                            <p>Job ID: ${data.id}</p>
-                            <p>You can view it <a href="/jobs/${data.id}" style="color: white; text-decoration: underline;">here</a></p>
-                        `;
-                        
-                        form.parentNode.insertBefore(successMessage, form.nextSibling);
-                        form.reset();
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        
-                        // Show error message in the form
-                        const errorDisplay = document.createElement('div');
-                        errorDisplay.style.backgroundColor = '#dc3545';
-                        errorDisplay.style.color = 'white';
-                        errorDisplay.style.padding = '15px';
-                        errorDisplay.style.borderRadius = '5px';
-                        errorDisplay.style.marginTop = '20px';
-                        errorDisplay.textContent = `Error: ${error.message}`;
-                        
-                        form.parentNode.insertBefore(errorDisplay, form.nextSibling);
-                    } finally {
-                        const submitBtn = document.querySelector('.submit-btn');
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Post Job';
+                    switch (field) {
+                        case 'jobTitle':
+                            if (!/^\S.*\S$/.test(input.value)) {
+                                isValid = false;
+                                errorMessage = 'Please enter a valid job title (no leading/trailing spaces)';
+                            }
+                            break;
+                        case 'jobDescription':
+                            if (!validateJobDescription(input.value)) {
+                                isValid = false;
+                                errorMessage = `Description must be 50-5000 characters (current: ${input.value.trim().length})`;
+                            }
+                            break;
+                        case 'skillSet':
+                            if (!/^\S.*\S$/.test(input.value)) {
+                                isValid = false;
+                                errorMessage = 'Please enter at least one valid skill (no leading/trailing spaces)';
+                            }
+                            break;
+                        case 'experience':
+                            if (!validateExperience(input.value)) {
+                                isValid = false;
+                                errorMessage = 'Enter a number between 1 and 40 (e.g., 5 or 5.5)';
+                            }
+                            break;
+                        case 'jobType':
+                            if (input.value === '') {
+                                isValid = false;
+                                errorMessage = 'Please select a job type';
+                            }
+                            break;
+                        case 'location':
+                            if (!validateLocation(input.value)) {
+                                isValid = false;
+                                errorMessage = 'Enter 3-60 letters, commas allowed between words, no leading/trailing spaces or commas, no consecutive spaces or commas';
+                            }
+                            break;
+                        case 'salary':
+                            if (!validateSalary(input.value)) {
+                                isValid = false;
+                                errorMessage = 'Enter salary between ₹10,000 and ₹5,80,00,000';
+                            }
+                            break;
+                        case 'deadline':
+                            if (!validateDeadline(input.value)) {
+                                isValid = false;
+                                errorMessage = 'Select a date between today and 2 years from now';
+                            }
+                            break;
                     }
+                    
+                    if (errorMessage) {
+                        errorElement.textContent = errorMessage;
+                        errorElement.classList.add('visible');
+                        input.classList.add('invalid');
+                    }
+                });
+                
+                // If valid, show confirmation modal
+                if (isValid) {
+                    modal.style.display = 'flex';
                 }
             });
             
-            form.addEventListener('input', function(e) {
-                const target = e.target;
-                const errorId = target.name + 'Error';
-                const errorElement = document.getElementById(errorId);
+            // Handle modal confirm
+            confirmBtn.addEventListener('click', async function() {
+                modal.style.display = 'none';
                 
-                if (errorElement) {
-                    if (target.checkValidity()) {
-                        errorElement.style.display = 'none';
-                    } else {
-                        errorElement.style.display = 'block';
+                const formData = {
+                    jobTitle: form.jobTitle.value.trim(),
+                    jobDescription: form.jobDescription.value.trim(),
+                    skillSet: form.skillSet.value.split(',').map(skill => skill.trim()),
+                    experience: form.experience.value,
+                    jobType: form.jobType.value,
+                    location: form.location.value.trim(),
+                    salary: form.salary.value.trim(),
+                    deadline: form.deadline.value
+                };
+                
+                try {
+                    const submitBtn = document.querySelector('.submit-btn');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Posting... ⏳';
+                    
+                    const response = await fetch('http://51.20.32.194:3102/api/jobs', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Failed to post job');
                     }
+                    
+                    const data = await response.json();
+                    
+                    // Create popup notification
+                    const notification = document.createElement('div');
+                    notification.className = 'notification';
+                    notification.innerHTML = `Created ${formData.jobTitle} job post 🎉`;
+                    document.body.appendChild(notification);
+                    
+                    // Remove notification after animation
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                    
+                    form.reset();
+                    jobDescriptionCount.textContent = 'Characters: 0/5000'; // Reset character count
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    
+                    const errorDisplay = document.createElement('div');
+                    errorDisplay.style.backgroundColor = '#ef4444';
+                    errorDisplay.style.color = 'white';
+                    errorDisplay.style.padding = '15px';
+                    errorDisplay.style.borderRadius = '8px';
+                    errorDisplay.style.marginTop = '20px';
+                    errorDisplay.textContent = `Error: ${error.message} 😔`;
+                    
+                    form.parentNode.insertBefore(errorDisplay, form.nextSibling);
+                } finally {
+                    const submitBtn = document.querySelector('.submit-btn');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Post Job ✨';
                 }
+            });
+            
+            // Handle modal cancel
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
             });
         });
     </script>
